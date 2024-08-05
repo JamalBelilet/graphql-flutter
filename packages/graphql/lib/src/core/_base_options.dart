@@ -2,6 +2,7 @@ import 'package:collection/collection.dart';
 import 'package:gql/ast.dart';
 
 import 'package:graphql/client.dart';
+import 'package:graphql/src/core/deep_collection_equality.dart';
 import 'package:graphql/src/core/result_parser.dart';
 import 'package:meta/meta.dart';
 
@@ -105,7 +106,7 @@ abstract class BaseOptions<TParsed extends Object?> {
       (other is BaseOptions &&
           runtimeType == other.runtimeType &&
           const ListEquality<Object?>(
-            DeepCollectionEquality(),
+            DeepCollectionEqualityOpt(),
           ).equals(
             other.properties,
             properties,
@@ -113,7 +114,7 @@ abstract class BaseOptions<TParsed extends Object?> {
 
   @override
   int get hashCode => const ListEquality<Object?>(
-        DeepCollectionEquality(),
+        DeepCollectionEqualityOpt(),
       ).hash(properties);
 
   QueryResult<TParsed> createResult({

@@ -19,8 +19,38 @@ import 'package:graphql/src/scheduler/scheduler.dart';
 
 import 'package:graphql/src/core/_query_write_handling.dart';
 
+import 'deep_collection_equality.dart';
+
+bool optimizedDeepEquality(dynamic a, dynamic b) {
+  if (identical(a, b)) return true;
+  // if (a is Map && b is Map) {
+  //   if (a.length != b.length) return false;
+  //   for (var key in a.keys) {
+  //     if (!b.containsKey(key) || !optimizedDeepEquality(a[key], b[key]))
+  //       return false;
+  //   }
+  //   return true;
+  // }
+  // if (a is List && b is List) {
+  //   if (a.length != b.length) return false;
+  //   for (int i = 0; i < a.length; i++) {
+  //     if (!optimizedDeepEquality(a[i], b[i])) return false;
+  //   }
+  //   return true;
+  // }
+  // if (a is Set && b is Set) {
+  //   if (a.length != b.length) return false;
+  //   for (var element in a) {
+  //     if (!b.contains(element)) return false;
+  //   }
+  //   return true;
+  // }
+  return a == b;
+}
+
 bool Function(dynamic a, dynamic b) _deepEquals =
-    const DeepCollectionEquality().equals;
+    const DeepCollectionEqualityOpt().equals;
+// optimizedDeepEquality;
 
 class QueryManager {
   QueryManager({

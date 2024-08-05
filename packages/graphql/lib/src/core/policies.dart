@@ -1,4 +1,5 @@
 import 'package:graphql/client.dart';
+import 'package:graphql/src/core/deep_collection_equality.dart';
 import 'package:meta/meta.dart';
 import "package:collection/collection.dart";
 
@@ -167,7 +168,7 @@ class Policies {
 
   @override
   int get hashCode => const ListEquality<Object?>(
-        DeepCollectionEquality(),
+        DeepCollectionEqualityOpt(),
       ).hash([fetch, error, cacheReread]);
 
   /// Returns `false` if either [fetch] or [cacheReread] policies have disabled rebroadcast.
@@ -308,7 +309,7 @@ class DefaultPolicies {
       identical(this, o) ||
       (o is DefaultPolicies &&
           const ListEquality<Object?>(
-            DeepCollectionEquality(),
+            DeepCollectionEqualityOpt(),
           ).equals(
             o._getChildren(),
             _getChildren(),
@@ -316,7 +317,7 @@ class DefaultPolicies {
 
   @override
   int get hashCode => const ListEquality<Object?>(
-        DeepCollectionEquality(),
+        DeepCollectionEqualityOpt(),
       ).hash(
         _getChildren(),
       );

@@ -7,6 +7,8 @@ import 'package:gql/language.dart';
 import "package:gql_exec/gql_exec.dart";
 import 'package:normalize/utils.dart';
 
+import "../core/deep_collection_equality.dart";
+
 /// A fragment in a [document], optionally defined by [fragmentName]
 @immutable
 class Fragment {
@@ -33,7 +35,7 @@ class Fragment {
       identical(this, o) ||
       (o is Fragment &&
           const ListEquality<Object?>(
-            DeepCollectionEquality(),
+            DeepCollectionEqualityOpt(),
           ).equals(
             o._getChildren(),
             _getChildren(),
@@ -41,7 +43,7 @@ class Fragment {
 
   @override
   int get hashCode => const ListEquality<Object?>(
-        DeepCollectionEquality(),
+        DeepCollectionEqualityOpt(),
       ).hash(
         _getChildren(),
       );
@@ -90,7 +92,7 @@ class FragmentRequest {
       identical(this, o) ||
       (o is FragmentRequest &&
           const ListEquality<Object?>(
-            DeepCollectionEquality(),
+            DeepCollectionEqualityOpt(),
           ).equals(
             o._getChildren(),
             _getChildren(),
@@ -98,7 +100,7 @@ class FragmentRequest {
 
   @override
   int get hashCode => const ListEquality<Object?>(
-        DeepCollectionEquality(),
+        DeepCollectionEqualityOpt(),
       ).hash(
         _getChildren(),
       );
